@@ -18,7 +18,7 @@ router.get('/:id',(req,res) => {
       if(!ObjectId.isValid(id)){
           res.send('ID NOT VALID')
       }
-     Product.find({_id: id}).then((p) => {
+     Product.findOne({_id: id}).then((p) => {
         if(!p){
             res.status(404).send();
         }
