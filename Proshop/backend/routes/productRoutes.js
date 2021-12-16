@@ -3,31 +3,11 @@ const router = express.Router();
 const {User} = require('../Models/userModel');
 const {Product} = require('../Models/productModel');
 const {ObjectId} = require('mongodb');
+const {getProducts,getProductById} = require('../controllers/productController');
   
-router.get('/',(req,res) => {
-    Product.find({}).then((data) => {
-        if(!data){
-            res.status(404).send();
-        }
-        res.status(200).send(data);
-    }).catch((e) => {res.status(400).send(e)})
-})
+router.route('/').get(getProducts)
 
-router.get('/:id',(req,res) => {
-    var id = req.params.id;
-      if(!ObjectId.isValid(id)){
-          res.send('ID NOT VALID')
-      }
-     Product.findOne({_id: id}).then((p) => {
-        if(!p){
-            res.status(404).send();
-        }
-        res.status(200).send(p);
-     }).catch((e) => {res.status(400).send(e)});
-     
-    
-    
-})
+router.route('/:id').get(getProductById)
 
 
 module.exports = router;

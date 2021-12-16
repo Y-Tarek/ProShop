@@ -5,13 +5,18 @@ const mongoose = require('./config/db');
 const {User} = require('./Models/userModel');
 const {Product} = require('./Models/productModel');
 const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');
 const {errorHandler,notFound, erroHandler} = require('./middleware/errorMiddleware');
+const bodyParser = require('body-parser');
 const app = express();
+
+app.use(bodyParser.json());
 
 app.get('/',(req,res) => {
     res.send('API RUNNING');
 })
 app.use('/api/products',productRoutes);
+app.use('/api/users',userRoutes);
 
 app.use(notFound);
 
