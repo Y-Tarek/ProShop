@@ -50,11 +50,28 @@ var getUserprofile = ( async (req,res) => {
        return res.status(404).send();
    }
   return res.status(200).send({
-        _id: user._id,
-        name:user.name,
-        email:user.email,
-        isAdmin:user.isAdmin
+    _id: user._id,
+    name:user.name,
+    email:user.email,
+    isAdmin:user.isAdmin,
   });
+})
+
+var updateProfile = (async (req,res) => {
+  var user = req.user;
+  user.name = req.body.name || user.name
+  user.email = req.body.email || user.email
+   if(req.body.password){
+    user.password = req.body.password
+   }
+   const updatedUser = await user.save();
+   res.status(200).send({
+    _id: updatedUser._id,
+    name:updatedUser.name,
+    email:updatedUser.email,
+    isAdmin:updatedUser.isAdmin,
+   });
+  
 })
 
 var getAllUsers = ( async (req,res) => {
@@ -62,8 +79,8 @@ var getAllUsers = ( async (req,res) => {
    if(!users){
        res.status(404).send()
    }
-  res.send(users);
+  res.send(userResource({users}));
   
 })
 
-module.exports = {authUser, getAllUsers, getUserprofile, registerUser};
+module.exports = {authUser, getAllUsers, getUserprofile, registerUser, updateProfile};

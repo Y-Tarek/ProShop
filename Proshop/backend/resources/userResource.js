@@ -1,52 +1,28 @@
 const {User} = require('../Models/userModel');
 var users = User();
+const _ = require('lodash');
 
-const userResource = (users) => {
-//   switch (typeof users){
-//       case 'array': 
-//        console.log(typeof users);
-//       users.forEach(user => {
-//                 return {
-//                     _id: user._id,
-//                     name:user.name,
-//                     email:user.email,
-//                     isAdmin:user.isAdmin
-//                 }
-//             })
-//                break;
+const userResource =  (users) => {
 
-//         case 'object':
-//             console.log(typeof users);
-//             return {
-//                         _id: users._id,
-//                         name:users.name,
-//                         email:users.email,
-//                         isAdmin:users.isAdmin
-//                     }
-//                 break;
-//         default:
-//             '';
-//   }
-
-    // if(typeof users === 'array'){
-    //     console.log(typeof users);
-    //     users.forEach(user => {
-    //         return {
-    //             _id: users._id,
-    //             name:users.name,
-    //             email:users.email,
-    //             isAdmin:users.isAdmin
-    //         }
-    //     });
-    // }else if(typeof users === 'object'){
-    //     return {
-    //         _id: users._id,
-    //         name:users.name,
-    //         email:users.email,
-    //         isAdmin:users.isAdmin
-    //     }
-    // }
-    //  return Object.values(users);
+    var data =  Object.values(users);
+        if(Array.isArray(data[0])){
+            var userData =  data[0].map(l => ({
+                _id : l._id,
+                name: l.name,
+                email: l.email,
+                isAdmin: l.isAdmin
+            })); 
+            return userData;
+        }
+        else{
+            return  data.map(l => ({
+                _id : l._id,
+                name: l.name,
+                email: l.email,
+                isAdmin: l.isAdmin
+            }));   
+        }
+    
    
 }
 
