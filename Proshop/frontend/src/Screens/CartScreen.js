@@ -18,6 +18,8 @@ const CartScreen = () => {
 
   const cart = useSelector(state => state.cart);
   const {cartItems} = cart;
+  const userLogin = useSelector(state => state.userLogin);
+    const  {userInfo} = userLogin;
   console.log(cartItems);
   useEffect(() => {
       if(id)
@@ -27,8 +29,13 @@ const CartScreen = () => {
 
   const checkoutHandler = () => {
       console.log('checkout');
-      history('/login?redirect=shipping')
-  }
+       if(userInfo){
+           console.log('user logined');
+           history('/shipping')
+       }else{
+           history('/login')
+       }
+  } 
 
   const  removeFromCartHandler = (id) => {
      dispatch(removeFromCart(id))

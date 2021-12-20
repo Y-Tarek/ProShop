@@ -1,8 +1,8 @@
-import { CART_ADD_ITEM, CART_DELETE_ITEM } from "../constants/cartConstatnts";
+import { CART_ADD_ITEM, CART_DELETE_ITEM, CART_SAVE_SHIPPING_ADDRESS, CART_SAVE_PAYMENT_METHOD } from "../constants/cartConstatnts";
 
-export const cartReducer = (state ={cartItems: []}, action) => {
+export const cartReducer = (state ={cartItems: [],shippingAddress:{}}, action) => {
    
-    switch(action.type){
+    switch(action.type){ 
         case CART_ADD_ITEM:
             const item = action.payload
             const exsisitItem = state.cartItems.find(x => x.product === item.product)
@@ -27,6 +27,22 @@ export const cartReducer = (state ={cartItems: []}, action) => {
                     cartItems:state.cartItems.filter((x) => x.product !== action.payload) //Here we show what we havenot reoved from cartItems
                 }
 
+                case CART_SAVE_SHIPPING_ADDRESS:
+                   return {
+                       ...state,
+                       shippingAddress:action.payload
+                   }
+                   case CART_SAVE_PAYMENT_METHOD:
+                    return {
+                        ...state,
+                        paymentMethod: action.payload,
+                    }
+                //     case CART_CLEAR_ITEMS:
+                //         return {
+                //             ...state,
+                //             cartItems: [],
+                //         }
+                      
         default:
             return state
     }

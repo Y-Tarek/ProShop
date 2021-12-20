@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CART_ADD_ITEM, CART_DELETE_ITEM } from "../constants/cartConstatnts";
+import { CART_ADD_ITEM, CART_DELETE_ITEM,   CART_SAVE_SHIPPING_ADDRESS, CART_SAVE_PAYMENT_METHOD } from "../constants/cartConstatnts";
 
 // getstate used to get all what is in store.js (Rducers) down we use it to access cart which represent CartReducer in store.js
 export const addToCart = (id,qty) => async (dispatch,getState) => {
@@ -13,7 +13,7 @@ export const addToCart = (id,qty) => async (dispatch,getState) => {
            image:data.image,
            price:data.price,
            countInStock:data.countInStock,
-           qty:data.qty
+           qty:qty
        }
    })
    localStorage.setItem('createItems',JSON.stringify(getState().cart.cartItems))
@@ -26,4 +26,23 @@ export const removeFromCart = (id) => async(dispatch, getState) => {
   })
    localStorage.setItem('cartItems',JSON.stringify(getState().cart.cartItems))
 }
+
+
+export const saveShippingAddress = (data) => (dispatch) => {
+    dispatch({
+      type: CART_SAVE_SHIPPING_ADDRESS,
+      payload: data,
+    })
+  
+    localStorage.setItem('shippingAddress', JSON.stringify(data))
+  }
+
+  export const savePaymentMethod = (data) => (dispatch) => {
+    dispatch({
+      type: CART_SAVE_PAYMENT_METHOD,
+      payload: data,
+    })
+  
+    localStorage.setItem('paymentMethod', JSON.stringify(data))
+  }
 

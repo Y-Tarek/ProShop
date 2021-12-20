@@ -83,4 +83,5 @@ var getAllUsers = ( async (req,res) => {
   
 })
 
+
 module.exports = {authUser, getAllUsers, getUserprofile, registerUser, updateProfile};

@@ -7,6 +7,8 @@ import { logout } from '../actions/userActions';
 const Header = () => {
     const userLogin = useSelector(state => state.userLogin);
     const {userInfo} = userLogin;
+    const userDetails = useSelector(state => state.userDetails);
+    const {user} = userDetails;
     const dispatch = useDispatch();
     const logoutHandler = () => {
       dispatch(logout());
@@ -24,8 +26,8 @@ const Header = () => {
                     <LinkContainer to = '/cart'>
                         <Nav.Link ><i className="fas fa-shopping-cart"></i>CART</Nav.Link>
                     </LinkContainer>
-                    {userInfo ? (
-                      <NavDropdown title={userInfo.name} id='username'>
+                    {user && userInfo ? (
+                      <NavDropdown title={user.name || userInfo.name} id='username'>
                           <LinkContainer to='/profile'>
                               <NavDropdown.Item>Profile</NavDropdown.Item> 
                           </LinkContainer>
