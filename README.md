@@ -33,6 +33,11 @@ User Authintication and Authorization Provided, Admin Screens and Activites from
    
        npm run server | npm run client
        
+   Inside backend folder there is a data contains dummy data for models,seeder.js is a file contains a Script that adds/delete this data into your database and to do so you run:
+          
+          node backend/seeder (importing data)
+          node backend/seeder -d (deleting data)
+          
    Information about running the app is provided in scripts section in package.json file.
 
 ## API Documentation
