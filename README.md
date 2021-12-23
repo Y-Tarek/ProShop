@@ -33,7 +33,7 @@ User Authintication and Authorization Provided, Admin Screens and Activites from
    
        npm run server | npm run client
        
-   Information about running the app is provied in scrips section in package.json file.
+   Information about running the app is provided in scrips section in package.json file.
 
 ## API Documentation
 
