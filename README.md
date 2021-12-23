@@ -17,6 +17,23 @@ User Authintication and Authorization Provided, Admin Screens and Activites from
    then run: 
       
       npm install 
+      
+    
+   then go inside frontend folder:
+        
+        npm install
+        
+   then run:
+        
+        npm run dev
+        
+   This will run the server and the client concurently.
+   
+   If you wish to run the server or the client alone:
+   
+       npm run server | npm run client
+       
+   Information about running the app is provied in scrips section in package.json file.
 
 ## API Documentation
 
