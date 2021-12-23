@@ -30,3 +30,13 @@ multer | https://www.npmjs.com/package/multer
 
 
 React Packages:
+
+  Name | Link
+------------ | -------------
+react-bootstrap | https://www.npmjs.com/package/react-bootstrap
+react-router-dom | https://www.npmjs.com/package/react-router-dom
+redux | https://www.npmjs.com/package/redux
+react-redux | https://www.npmjs.com/package/react-redux
+redux-devtools-extension| https://www.npmjs.com/package/redux-devtools-extension
+react-paypal-button-v2 | https://www.npmjs.com/package/react-paypal-button-v2
+axios | https://www.npmjs.com/package/axios
