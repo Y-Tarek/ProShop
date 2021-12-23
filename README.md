@@ -17,15 +17,14 @@ User Authintication and Authorization Provided, Admin Screens and Activites from
 
 Node Packages:
 
-   Request | Performs
+   Name | Link
 ------------ | -------------
-/register | Registeration of a user with data in the server/db/models/user.js file
-/login | Authinticating a user by UserNameOrEmail and password feilds
-/post | Uploading image and data of a missing or found child you can find these data in server/db/models/post.js file
-/search/gender&type | Search for a missing or found child with an image (type:status of the searched child missing or found,gender:gender of the child)
-/profile | Getting user data
-/editProfile | Updating user data
-/myPosts | Getting the posts of current user
-/mypost/id | Getting a specific Post
-/deletePost/id | Deleting specific Post
-/logout | Sign out Current User
+express | https://www.npmjs.com/package/express
+bcryptjs | https://www.npmjs.com/package/bcryptjs
+dotEnv | https://www.npmjs.com/package/dotenv
+mongoose | https://www.npmjs.com/package/mongoose
+jsonwebtoken | https://www.npmjs.com/package/jsonwebtoken
+concurently | https://www.npmjs.com/package/concurrently
+nodemon | https://www.npmjs.com/package/nodemon
+multer | https://www.npmjs.com/package/multer
+
