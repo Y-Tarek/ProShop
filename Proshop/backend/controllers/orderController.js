@@ -68,4 +68,15 @@ const updateOrderToPaid = (async (req,res) => {
   res.status(200).send(updatedOrder);
 })
 
-module.exports = {addOrderItems, getOrderById, updateOrderToPaid}
+const myOrders = (async (req,res) => {
+  var orders = await Order.find({user: req.user._id});
+  if(!orders){
+    res.status(404).send();
+  } 
+  res.status(200).send(orders)
+  
+})
+
+ 
+module.exports = {addOrderItems, getOrderById, updateOrderToPaid, myOrders}
+    

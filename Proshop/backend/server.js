@@ -4,6 +4,7 @@ const {dotenv} = require('dotenv').config();
 const mongoose = require('./config/db');
 const {User} = require('./Models/userModel');
 const {Product} = require('./Models/productModel');
+const {Order} = require('./Models/orderModel');
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');

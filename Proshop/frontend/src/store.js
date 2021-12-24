@@ -6,7 +6,7 @@ import { cartReducer } from './reducers/cartReducers';
 import { userLoginReducer } from './reducers/userReducers';
 import { userRegisterReducer } from './reducers/userReducers';
 import { userDetailsReducer, userUpdateProfileReducer } from './reducers/userReducers';
-import { orderCreateReducer, orderDetailsReducer, orderPayReducer } from './reducers/orderReducers';
+import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListReducer } from './reducers/orderReducers';
 
 const cartItemsFromStorage = localStorage.getItem('cardItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
@@ -28,7 +28,8 @@ const reducer = combineReducers({
     userUpdateProfile:userUpdateProfileReducer,
     orderCreate:orderCreateReducer,
     orderDetails:orderDetailsReducer,
-    orderPay:orderPayReducer
+    orderPay:orderPayReducer,
+    orderList: orderListReducer
 })
 const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 
