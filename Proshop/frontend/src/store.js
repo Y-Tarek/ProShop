@@ -3,8 +3,8 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { productDetailReducer, productListReducer } from './reducers/productReducer';
 import { cartReducer } from './reducers/cartReducers';
-import { userLoginReducer } from './reducers/userReducers';
-import { userRegisterReducer } from './reducers/userReducers';
+import { userDeleteReducer, userLoginReducer, userUpdateReducer } from './reducers/userReducers';
+import { userRegisterReducer, userListDetailsReducer } from './reducers/userReducers';
 import { userDetailsReducer, userUpdateProfileReducer } from './reducers/userReducers';
 import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListReducer } from './reducers/orderReducers';
 
@@ -25,11 +25,15 @@ const reducer = combineReducers({
     userLogin:userLoginReducer,
     userRegister:userRegisterReducer,
     userDetails:userDetailsReducer,
+    userListDetails:userListDetailsReducer,
+    userDelete:userDeleteReducer,
+    userUpdate:userUpdateReducer,
     userUpdateProfile:userUpdateProfileReducer,
     orderCreate:orderCreateReducer,
     orderDetails:orderDetailsReducer,
     orderPay:orderPayReducer,
-    orderList: orderListReducer
+    orderList: orderListReducer,
+    
 })
 const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 

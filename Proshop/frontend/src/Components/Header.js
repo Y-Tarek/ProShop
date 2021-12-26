@@ -27,7 +27,7 @@ const Header = () => {
                         <Nav.Link ><i className="fas fa-shopping-cart"></i>CART</Nav.Link>
                     </LinkContainer>
                     {user && userInfo ? (
-                      <NavDropdown title={user.name || userInfo.name} id='username'>
+                      <NavDropdown title={userInfo.name || user.name} id='username'>
                           <LinkContainer to='/profile'>
                               <NavDropdown.Item>Profile</NavDropdown.Item> 
                           </LinkContainer>
@@ -38,6 +38,19 @@ const Header = () => {
                         <Nav.Link><i className="fas fa-user"></i>SIGN IN</Nav.Link>
                         </LinkContainer>
                     }
+                     {userInfo && userInfo.isAdmin && (
+                         <NavDropdown title= 'Admin' id='adminmenue'>
+                            <LinkContainer to='/admin/userlist'>
+                                <NavDropdown.Item>Users</NavDropdown.Item> 
+                            </LinkContainer>
+                            <LinkContainer to='/admin/productlist'>
+                                <NavDropdown.Item>Products</NavDropdown.Item> 
+                            </LinkContainer>
+                            <LinkContainer to='/admin/orderlist'>
+                                <NavDropdown.Item>Orders</NavDropdown.Item> 
+                            </LinkContainer>
+                         </NavDropdown>
+                     )}
                     
                     </Nav>
                     </Navbar.Collapse>

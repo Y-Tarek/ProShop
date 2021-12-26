@@ -24,4 +24,12 @@ const authorizeUser = async function(req,res,next){
 
 }
 
-module.exports= {authorizeUser};
+const isAdmin = (req,res,next) => {
+    if(req.user && req.user.isAdmin){
+        next();
+    }else{
+        res.status(402).send("No Access to this Route");
+    }
+}
+
+module.exports= {authorizeUser, isAdmin};

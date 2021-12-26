@@ -1,5 +1,6 @@
 const {User} = require('../Models/userModel');
 const {userResource} = require('../resources/userResource');
+const {ObjectId} = require('mongodb');
 
 
 var registerUser = ( async (req,res) => {
@@ -79,9 +80,49 @@ var getAllUsers = ( async (req,res) => {
    if(!users){
        res.status(404).send()
    }
-  res.send(userResource({users}));
+  res.status(200).send(users);
+  
+})
+
+var deleteUser = (async (req,res) => {
+  var id = req.params.id;
+  const user = await User.findById(id);
+   if(!user){
+     res.status(404).send();
+   }
+  await user.remove();
+  res.status(200).send("User Removed")
+})
+
+
+var getUserById = (async (req,res) => {
+  var id = req.params.id;
+  if(!ObjectId.isValid(id)){
+    res.status(400).send()
+  }
+  var user = await User.findById(id).select('-password');
+   if(!user){
+     res.status(404).send()
+   }
+   res.status(200).send(user);
+})
+
+
+var updateUser = (async (req,res) => {
+  var user = await User.findOneAndUpdate({_id:req.params.id}, {$set:req.body}, {new:true});
+  if(!user){
+    res.status(404).send();
+  }
+  res.status(200).send({
+    _id: user._id,
+    name: user.name,
+    email:user.email,
+    isAdmin: user.isAdmin
+  })
+
+  
   
 })
 
 
-module.exports = {authUser, getAllUsers, getUserprofile, registerUser, updateProfile};
+module.exports = {authUser, getAllUsers, getUserprofile, registerUser, updateProfile, deleteUser, getUserById, updateUser};
