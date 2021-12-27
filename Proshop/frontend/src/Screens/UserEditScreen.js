@@ -20,8 +20,9 @@ const UserEditScreen = () => {
     
     const userDetails = useSelector(state => state.userDetails);
     const  {loading, error, user} = userDetails;
+
     const userUpdate = useSelector(state => state.userUpdate);
-    const  {loading:loadingUpdate, error:errorUpdate, sucess:successUpdate} = userUpdate;
+    const  {loading:loadingUpdate, error:errorUpdate, success:successUpdate} = userUpdate;
 
     const location = useLocation();
     const history = useNavigate(); 
@@ -43,7 +44,7 @@ const UserEditScreen = () => {
                }
         }
         
-    },[user, id, dispatch, successUpdate])
+    },[user, id, dispatch, successUpdate, history])
      
     const submitHandler =  (e) => {
         e.preventDefault();   

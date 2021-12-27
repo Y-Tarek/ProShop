@@ -15,6 +15,8 @@ import PlaceOrderScreen from './Screens/PlaceOrderScreen';
 import OrderScreen from './Screens/OrderScreen';
 import UserListScreen from './Screens/UserListScreen';
 import UserEditScreen from './Screens/UserEditScreen';
+import ProductListScreen from './Screens/ProductListScreen';
+import ProductEditScreen from './Screens/ProductEditScreen';
 
  
 const App = () =>  {
@@ -35,6 +37,8 @@ const App = () =>  {
             <Route path = "/profile" element= {<ProfileScreen/>} ></Route>
             <Route path = "/admin/user/:id/edit" element= {<UserEditScreen/>} ></Route>
             <Route path = "/admin/userlist" element= {<UserListScreen/>} ></Route>
+            <Route path = "/admin/productlist" element= {<ProductListScreen/>} ></Route>
+            <Route path = "/admin/product/:id/edit" element= {<ProductEditScreen/>} ></Route>
             <Route path = "/cart" element= {<CartScreen/>} ></Route>
             <Route path = "/cart/:id" element= {<CartScreen/>} ></Route>
             

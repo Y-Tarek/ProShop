@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const {products} = require('./data/products');
 const {dotenv} = require('dotenv').config();
 const mongoose = require('./config/db');
@@ -8,11 +9,13 @@ const {Order} = require('./Models/orderModel');
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const uploadRoutes = require('./routes/uploadRoute');
 const {errorHandler,notFound, erroHandler} = require('./middleware/errorMiddleware');
 const bodyParser = require('body-parser');
 const app = express();
 
 app.use(bodyParser.json());
+app.use('/uploads',express.static(path.join(__dirname, '/uploads')))
 
 app.get('/',(req,res) => {
     res.send('API RUNNING');
@@ -20,6 +23,7 @@ app.get('/',(req,res) => {
 app.use('/api/products',productRoutes);
 app.use('/api/users',userRoutes);
 app.use('/api/orders',orderRoutes);
+app.use('/api/upload',uploadRoutes);
 app.get('/api/config/paypal',(req,res) => {
     res.send(process.env.PAYPAL_CLIENT_ID);
 })
