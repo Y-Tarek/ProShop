@@ -77,6 +77,25 @@ const myOrders = (async (req,res) => {
   
 })
 
+const allOrders = (async (req,res) => {
+  const orders = await Order.find({}).populate('user', 'id name');
+   if(!orders){
+     res.status(404).send()
+   }
+   res.status(200).send(orders)
+})
+
+const markAsDelivered = (async (req,res) => {
+  const deliveredOrder = await Order.findOneAndUpdate({_id:req.params.id},
+     {$set:{isDelivered:true, deliveredAt:Date.now()}},
+      {new:true}
+      );
+ if(!deliveredOrder){
+   res.status(400).send()
+ }
+ res.status(200).send('Delivered')
+})
+
  
-module.exports = {addOrderItems, getOrderById, updateOrderToPaid, myOrders}
+module.exports = {addOrderItems, getOrderById, updateOrderToPaid, myOrders, allOrders, markAsDelivered}
     

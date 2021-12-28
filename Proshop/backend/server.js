@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
+const morgan = require('morgan');
 const {products} = require('./data/products');
+const multer = require('multer');
 const {dotenv} = require('dotenv').config();
 const mongoose = require('./config/db');
 const {User} = require('./Models/userModel');
@@ -14,16 +16,30 @@ const {errorHandler,notFound, erroHandler} = require('./middleware/errorMiddlewa
 const bodyParser = require('body-parser');
 const app = express();
 
-app.use(bodyParser.json());
-app.use('/uploads',express.static(path.join(__dirname, '/uploads')))
+if(process.env.NODE_ENV === 'development'){
+    app.use(morgan('dev'));
+}
 
-app.get('/',(req,res) => {
-    res.send('API RUNNING');
+app.use(bodyParser.json());
+app.use(express.static('./uploads'))
+
+const storage = multer.diskStorage({
+    destination(req, file, cb){
+        cb(null, './uploads')
+    },
+    filename(req, file, cb){
+        cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
+    }
 })
+
+const upload = multer({storage:storage})
+
+app.get('/',(req,res) => {res.send('API RUNNING');})
+app.post('/api/upload',upload.single('image'),(req,res)=>{res.status(200).send(`/${req.file.filename}`);})
 app.use('/api/products',productRoutes);
-app.use('/api/users',userRoutes);
+app.use('/api/users',userRoutes); 
 app.use('/api/orders',orderRoutes);
-app.use('/api/upload',uploadRoutes);
+// app.use('/api/upload',uploadRoutes);
 app.get('/api/config/paypal',(req,res) => {
     res.send(process.env.PAYPAL_CLIENT_ID);
 })

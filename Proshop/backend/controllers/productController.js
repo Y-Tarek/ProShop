@@ -1,5 +1,6 @@
 const {Product} = require('../Models/productModel');
 const {ObjectId} = require('mongodb');
+const { products } = require('../data/products');
 
 
 
@@ -79,4 +80,33 @@ var deleteProduct = (async (req,res) => {
      res.status(200).send('Deleted Successfuly')
 })
 
-module.exports = {getProducts, getProductById, updateProduct, deleteProduct, createProduct};
+var reviewProduct = (async (req,res) => {
+    const {rating, comment} = req.body;
+    var id = req.params.id;
+    if(!ObjectId.isValid(id)){
+        res.send('ID NOT VALID')
+    }
+    const product = await Product.findById({_id:id});
+    if(!product){
+         res.status(404).send()
+    }
+    const alreadyReviewd = product.reviews.find(r => r.user.toString() === req.user._id.toString());
+     if(alreadyReviewd){
+         res.status(400).send('already Reviewed')
+     }else{
+         const review = {
+             name:req.user.name,
+             rating: Number(rating),
+             comment,
+             user: req.user._id
+         }
+         product.reviews.push(review);
+         product.numReviews = product.reviews.length;
+         product.rating = product.reviews.reduce((acc, item) => item.rating + acc, 0 / product.reviews.length);
+         await product.save();
+         res.status(201).send('Review added')
+     }
+    
+})
+
+module.exports = {getProducts, getProductById, updateProduct, deleteProduct, createProduct, reviewProduct};
