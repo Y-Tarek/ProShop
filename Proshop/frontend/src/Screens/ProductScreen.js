@@ -8,7 +8,7 @@ import { listProductDetails, reviewProduct } from '../actions/productActions';
 import Loader from '../Components/Loader';
 import Message from '../Components/message';
 import { PRODUCT_REVIEW_RESET } from '../constants/productContants';
-
+import Meta from '../Components/Meta';
 
 
 const ProductScreen = () => {
@@ -49,6 +49,7 @@ const ProductScreen = () => {
 
     return (
         <>
+         <Meta title={product.name} descreption={product.descreption} keywords={product.brand}/>
            <Link className='btn btn-light my-3' to='/'>Go Back</Link>
            {loading ? <Loader/> : error ? <Message variant='danger'>{error}</Message> : (
              <>

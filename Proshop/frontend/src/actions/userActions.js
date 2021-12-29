@@ -25,13 +25,16 @@ import { USER_LOGIN_FAIL,
         USER_UPDATE_RESET,
         USER_UPDATE_SUCCESS
     } from "../constants/userConstants"
+   
 
     import { ORDER_LIST_RESET
      } from "../constants/orderConstants";
 
 import axios from 'axios';
+
+
 export const login =  (email,password) => async (dispatch) => {
-  try {
+  try { 
       dispatch({
           type:USER_LOGIN_REQUEST
       });

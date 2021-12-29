@@ -1,18 +1,28 @@
 const {Product} = require('../Models/productModel');
 const {ObjectId} = require('mongodb');
 const { products } = require('../data/products');
+const res = require('express/lib/response');
 
 
 
-var getProducts = ((req,res) => {
-    Product.find({}).then((data) => {
-        if(!data){
-            res.status(404).send();
-        }
-        res.status(200).send(data);
-    }).catch((e) => {res.status(400).send(e)})
+var getProducts = (async (req,res) => {
+    const pageSize = 2;
+    const page = Number(req.query.pageNumber) || 1;
+    const keyword = req.query.keyword ?{
+    
+        name:{
+            $regex: req.query.keyword,
+            $options: 'i'
+        },
+
+    } : {} 
+    const count = await Product.count({...keyword});
+    const products = await Product.find({ ...keyword }).limit(pageSize).skip(pageSize * (page -1));
+    if(!products){
+        res.status(404).send()
+    }
+    res.status(200).send({products, page, pages: Math.ceil(count / pageSize)});
 }) 
-
 
 var getProductById = ((req,res) => {
     var id = req.params.id;
@@ -25,6 +35,11 @@ var getProductById = ((req,res) => {
       }
       res.status(200).send(p);
    }).catch((e) => {res.status(400).send(e)});
+});
+
+var getTopProducts = (async (req,res) => {
+  const products = await Product.find({}).sort({rating:-1}).limit(3);
+     res.status(200).send(products);
 });
 
 var createProduct = (async (req,res) => {
@@ -65,7 +80,6 @@ var updateProduct = (async (req,res) => {
         image:updatedProduct.image
     });
 })
-
 
 var deleteProduct = (async (req,res) => {
     var id = req.params.id;
@@ -109,4 +123,4 @@ var reviewProduct = (async (req,res) => {
     
 })
 
-module.exports = {getProducts, getProductById, updateProduct, deleteProduct, createProduct, reviewProduct};
+module.exports = {getProducts, getProductById, updateProduct, deleteProduct, createProduct, reviewProduct, getTopProducts};
