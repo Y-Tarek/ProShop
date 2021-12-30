@@ -34,7 +34,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage:storage})
 
-app.get('/',(req,res) => {res.send('API RUNNING');})
 app.post('/api/upload',upload.single('image'),(req,res)=>{res.status(200).send(`/${req.file.filename}`);})
 app.use('/api/products',productRoutes);
 app.use('/api/users',userRoutes); 
@@ -43,6 +42,18 @@ app.use('/api/orders',orderRoutes);
 app.get('/api/config/paypal',(req,res) => {
     res.send(process.env.PAYPAL_CLIENT_ID);
 })
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname,'..', 'frontend' ,'build')));
+    app.get('*', (req,res) => {
+        // console.log(path.join(__dirname,'..', 'frontend' ,'build',  'index.html'));
+        res.sendFile(path.join(__dirname,'..', 'frontend' ,'build',  'index.html'))
+
+
+    })
+}else{
+    app.get('/',(req,res) => {res.send('API RUNNING');})
+}
 
 app.use(notFound);
 
