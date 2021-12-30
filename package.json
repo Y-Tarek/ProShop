@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node Proshop/backend/server",
+    "start": "node backend/server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon backend/server",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d",
-    "heroku_postbuild" : "NPM_CONFIG_PRODUCTION=false npm install --prefix Proshop/frontend && npm run build --prefix Proshop/frontend"
+    "heroku_postbuild" : "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "",
   "license": "ISC",
